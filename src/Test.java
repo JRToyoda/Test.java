@@ -1,7 +1,15 @@
 public class Test {
     public static void main(String[] args) {
-        System.out.println(12345 % 10);
-
+        int ammo = 10;
+        String display = "Magazine visualization:\n";
+        if (ammo > 10) {
+            System.out.println("Sorry. Display is not available for magazines with a capacity greater than 10.");
+        } else {
+            for (int i = 1; i <= ammo; i++) {
+                display += ("-----------> " + i + "\n");
+            }
+        }
+        System.out.println(display);
     }
     public static int max(int data[]) {                         // 1
         int highest = data[0];                                  // 1

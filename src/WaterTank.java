@@ -48,34 +48,25 @@ public class WaterTank {
         } else if (level + amount > capacity) {
             float wastage = (level + amount) - capacity;
             if (JOptionPane.showConfirmDialog(null, "               The tank is about to reach full capacity.              \n" +
-                                                                          "           Please confirm if you want to add 400L of water            \n" +
+                                                                          "           Please confirm if you want to add " + amount + "L of water            \n" +
                                                                           "(it will exceed the tank capacity, and the excess water will be wasted).",
                                                                     "Jaen Rafael M. Toyoda", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 JOptionPane.showMessageDialog(null, "Potential Wastage\t :" + wastage + "L\n" +
                                                                           "User Response\t :Yes\n" +
                                                                           "currentWater\t ->" + capacity +"L", "Jaen Rafael M. Toyoda",
                                                                           JOptionPane.INFORMATION_MESSAGE);
+                level = capacity;
             } else {
                 JOptionPane.showMessageDialog(null, "Potential Wastage\t :" + wastage + "L\n" +
-                                                                          "User Response\t :Yes\n" +
+                                                                          "User Response\t :No\n" +
                                                                           "currentWater\t ->" + level +"L", "Jaen Rafael M. Toyoda",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             level += amount;
-            JOptionPane.showMessageDialog(null, amount+"L	is	added	to	tank.");
+            JOptionPane.showMessageDialog(null, amount+"L is added to tank.",
+                    "Jaen Rafael M. Toyoda",JOptionPane.INFORMATION_MESSAGE);
         }
-//        text = true;
-//        if (amount < 0) {
-//            System.out.println("** ERROR: Negative Input Detected! **");
-//            text = false;
-//        } else if (amount + level > capacity) {
-//            System.out.println("** ERROR: Level Exceeds Capacity! **");
-//            text = false;
-//        } else {
-//            level += amount;
-//            text = true;
-//        }
     }
     public void removeWater(float amount) {
         if (level <= 0){
@@ -87,7 +78,8 @@ public class WaterTank {
                     "Jaen Rafael M. Toyoda",JOptionPane.ERROR_MESSAGE);
         }else {
             level -= amount;
-            JOptionPane.showMessageDialog(null, amount+"L	is	removed	from	the	tank.");
+            JOptionPane.showMessageDialog(null, amount+"L	is	removed	from	the	tank.",
+                    "Jaen Rafael M. Toyoda",JOptionPane.ERROR_MESSAGE);
         }
 //        if (amount < 0) {
 //            System.out.println("** ERROR: Negative Input Detected! **");
@@ -189,75 +181,5 @@ public class WaterTank {
         display += " 0L(_______________________)";
         //draw a cover(top) portion of the tank, then concatenates the drawn graphics from a loop
         return " ^^^^^^^^^^^^^^^^^^^^^\n" + display;
-    }
-    public static void main(String[] args) {
-        String menu[]={"Add	Water", "Remove	Water", "Clear	tank", "Setup	Tank", "End"};
-        String choice="",color="Dirty	Black",brand="";
-        float amount=0.00f, capacity=0.00f;
-        JOptionPane j=new JOptionPane();
-        WaterTank tank=new WaterTank("Sadie	Sink",1000);
-        String display="", hold="";
-        tank.setColor(color);
-        do{
-            display = tank.drawTank("~");
-            hold=tank.viewWTInfo()+"\nSelect:";
-            choice=j.showInputDialog(null,new JTextArea(display+"\n\n"+hold), "Menu",1,null,menu,menu[0]).toString();
-            switch(choice){
-                case "Add	Water":
-                    if (tank.isFull()) {
-                        JOptionPane.showMessageDialog(null, "Tank	is	full","Jaen Rafael M. Toyoda",JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        amount = Float.parseFloat(JOptionPane.showInputDialog("Amount	(L:"));
-                        tank.addWater(amount);
-                    }
-                    break;
-                case "Remove	Water":
-                    if(tank.isEmpty()){
-                        j.showMessageDialog(null, "Tank	is	empty","Jaen Rafael M. Toyoda",JOptionPane.ERROR_MESSAGE);
-                    }else{
-                        amount=Float.parseFloat(j.showInputDialog(null, "Amount	(L):", "Jaen Rafael M. Toyoda"));
-                        tank.removeWater(amount);
-                    }
-                    break;
-                case "Clear	tank":
-                    j.showMessageDialog(null, "Tank	is	empty.	Wastage\t:	"+ tank.drain());
-                    break;
-                case "Setup	Tank":
-                    brand=j.showInputDialog("Brand:	");
-                    color=j.showInputDialog("Color:	");
-                    if (tank.isEmpty()) {
-                        capacity=Float.parseFloat(j.showInputDialog("Change	Capacity:"));
-                    } else {
-                        j.showMessageDialog(null, "Capacity cannot be changed if tank is not Empty");
-                    }
-                    tank.setBrand(brand);
-                    tank.setColor(color);
-                    tank.setCapacity(capacity);
-                    j.showMessageDialog(null, "Tank	has	been	updated.");
-                    break;
-                case "End":
-            } //end	of	switch
-        }while(!choice.equals("End"));
-//        WaterTank tank = new WaterTank("Septic Tank",500);
-//        System.out.println("Tester\t: Jaen Rafael Toyoda");
-//        tank.displayWTInfo();
-//        System.out.println("*** Before adding water ***");
-        tank.showWTInfo();
-//        System.out.println("*** After adding water ***");
-//        tank.addWater(300);
-//        tank.addWater(300);
-//        tank.showWTInfo();
-//        System.out.println("*** After removing water ***");
-//        tank.removeWater(700);
-//        tank.showWTInfo();
-//        tank.removeWater(150.50f);
-//        tank.removeWater(350.50f);
-//        System.out.println(tank.displayWTInfo());
-//        System.out.println(tank.viewWTInfo());
-
-//        System.out.println("Water Level\t: " + tank.currentWater() + "L");
-//        System.out.println("Capacity\t: " + tank.getCapacity() + "L");
-//        System.out.println("isEmpty\t\t: " + tank.isEmpty());
-//        System.out.println("isFull\t\t: " + tank.isFull());
     }
 }
